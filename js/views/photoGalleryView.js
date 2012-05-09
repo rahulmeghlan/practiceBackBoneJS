@@ -1,0 +1,28 @@
+var buildPhotoView = function (photoModel, photoController) {
+    var base = document.createElement("div"),
+        photoEl = document.createElement('div');
+    base.appendChild(photoEl);
+
+    var render = function(){
+        photoEl.innerHTML = _.template('photoTemplate', {src: photoModel.getSrc()});
+    }
+
+    photoModel.addSubscriber(render);
+
+    photoEl.addEventListener('click', function(){
+       photoController.handleEvent('click', photoModel);
+    });
+
+    var show = function(){
+        photoEl.style.display = '';
+    }
+
+    var hide = function(){
+        photoEl.style.display = 'none';
+    }
+
+    return{
+        showView : show,
+        hideView: hide
+    }
+}
